@@ -55,6 +55,8 @@ class ilac{
     string getisim();
 };
 
+void eczaneGirisi(int parola);
+
 int main()
 {
     eczane gencEczane;
@@ -202,3 +204,42 @@ int ilac::getId(){return ilac_id;}
 int ilac::getSayi(){return ilac_sayisi;}
 double ilac::getFiyat(){return ilac_fiyat;}
 string ilac::getisim(){return ilac_ismi;}
+
+//other function
+void eczaneGirisi(int parola)
+{
+    if(parola==123)
+        while (1)
+        {
+            int secim;
+            cout<<"Eczane Girisi\n"<<
+            "   1. Eczane Listesi Olustur\n"<<
+            "   2. Eczane Ekle\n"<<
+            "   3. Ilac Ekle\n"<<
+            "   4. Ilac Duzenle"<<
+            "   5. Ust menu"<<
+            "secim: ";
+            cin>>secim;
+            
+            if (secim==1)
+                cout<<"1. secim yapildi";
+            else if(secim==2)
+                cout<<"2. secim yapildi";
+            else if(secim==3)
+                cout<<"3. secim yapildi";
+            else if(secim==4)
+                cout<<"4. secim yapildi";
+            else if(secim==5)
+                cout<<"Ust menuye cikildi";
+            else
+                cout<<"Yanlis secim yaptiniz tekrar deneyiniz";
+            
+
+                
+                
+        
+        }
+    else
+        cout<<"Hatali sifre: ";    
+    
+}
