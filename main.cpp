@@ -28,6 +28,33 @@ class eczane
     string getAdres();
 };
 
+class ilac{
+ private:
+    int ilac_id;
+    int ilac_sayisi;
+    double ilac_fiyat;
+    string ilac_ismi;
+ public:
+    ilac();
+    ilac(int id,int sayi,double fiyat,string isim);
+    ilac(const ilac &other);
+    ilac &operator=(const ilac &other);
+
+    void ilacOlustur();
+    void ilacGoster();
+    void ilacDuzenle();
+
+    void setId(int id);
+    void SetSayi(int sayi);
+    void setFiyat(double fiyat);
+    void setIsim(string isim);
+
+    int getId();
+    int getSayi();
+    double getFiyat();
+    string getisim();
+};
+
 int main()
 {
     eczane gencEczane;
@@ -90,9 +117,9 @@ void eczane::eczaneIlacSayfasi()
     string text;
     string dosyaismi;
     dosyaismi = eczane_ismi+".dat";
-    ifstream File(dosyaismi); //create or open eczane file
-    while (getline(File,text)){cout<<text;}
-    File.close();
+    ifstream File2(dosyaismi); //create or open eczane file
+    while (getline(File2,text)){cout<<text;}
+    File2.close();
 }
 
 void eczane::setId(int id_){eczane_id = id_;}
@@ -102,3 +129,76 @@ void eczane::setAdres(string adres_){eczane_adresi = adres_;}
 int eczane::getId(){return eczane_id;}
 string eczane::getIsim(){return eczane_ismi;}
 string eczane::getAdres(){return eczane_adresi;}
+
+//ilac functions
+ilac::ilac()
+{
+    ilac_id = 0;
+    ilac_sayisi = 0;
+    ilac_fiyat = 0;
+    ilac_ismi = "";
+    
+}
+ilac::ilac(int id, int sayi,double fiyat,string isim )
+{
+    ilac_id = id;
+    ilac_sayisi = sayi;
+    ilac_fiyat = fiyat;
+    ilac_ismi = isim;
+}
+ilac::ilac(const ilac &other)
+{
+    ilac_id = other.ilac_id;
+    ilac_sayisi = other.ilac_sayisi;
+    ilac_fiyat = other.ilac_fiyat;
+    ilac_ismi = other.ilac_ismi;
+}
+ilac &ilac::operator=(const ilac &other)
+{
+    ilac_id = other.ilac_id;
+    ilac_sayisi = other.ilac_sayisi;
+    ilac_fiyat = other.ilac_fiyat;
+    ilac_ismi = other.ilac_ismi;
+    return (*this);
+}
+
+void ilac::ilacOlustur()
+{
+    cout<<"Ilac id: ";
+    cin>>ilac_id;
+    cout<<"Ilac sayisi: ";
+    cin>>ilac_sayisi;
+    cout<<"Ilac fiyati: ";
+    cin>>ilac_fiyat;
+    cout<<"Ilac ismi: ";
+    cin>>ilac_ismi;
+}
+void ilac::ilacGoster()
+{
+    cout<<
+    "isim: "<<ilac_ismi<<endl<<
+    "Id: "<<ilac_id<<endl<<
+    "Sayi: "<<ilac_sayisi<<endl<<
+    "Fiyat: "<<ilac_fiyat;
+}
+void ilac::ilacDuzenle()
+{
+    cout<<"Yeni ilac id: ";
+    cin>>ilac_id;
+    cout<<"Yeni ilac sayisi: ";
+    cin>>ilac_sayisi;
+    cout<<"Yeni ilac fiyati: ";
+    cin>>ilac_fiyat;
+    cout<<"Yeni ilac ismi: ";
+    cin>>ilac_ismi;
+}
+
+void ilac::setId(int id){ilac_id = id;}
+void ilac::SetSayi(int sayi){ilac_sayisi=sayi;}
+void ilac::setFiyat(double fiyat){ilac_fiyat=fiyat;}
+void ilac::setIsim(string isim){ilac_ismi=isim;}
+
+int ilac::getId(){return ilac_id;}
+int ilac::getSayi(){return ilac_sayisi;}
+double ilac::getFiyat(){return ilac_fiyat;}
+string ilac::getisim(){return ilac_ismi;}
