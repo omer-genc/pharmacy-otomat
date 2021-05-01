@@ -60,6 +60,8 @@ void eczaneGirisi(int parola);
 void musteriGirisi();
 void karsilama();
 void eczaneListesiOlustur();
+void eczaneEkle();
+void ilacEkle();
 
 int main()
 {
@@ -221,9 +223,9 @@ void eczaneGirisi(int parola)
             if (secim==1)
                 eczaneListesiOlustur();
             else if(secim==2)
-                cout<<"2. secim yapildi";
+                eczaneEkle();
             else if(secim==3)
-                cout<<"3. secim yapildi";
+                ilacEkle();
             else if(secim==4)
                 cout<<"4. secim yapildi";
             else if(secim==5)
@@ -309,4 +311,32 @@ void eczaneListesiOlustur()
     ofstream File2 (filename);
     File2<<"";
     File2.close();
+}
+void eczaneEkle()
+{
+    eczane E;
+    E.eczaneOlustur();
+    fstream File;
+    File.open("eczane_listesi.dat",std::ios_base::app);
+    File<<endl<<E.getId()<<endl<<E.getIsim()<<endl<<E.getAdres();
+    File.close();
+
+    string filename;
+    filename = E.getIsim() + "_ilac.dat";
+    ofstream File2 (filename);
+    File2<<"";
+    File2.close();
+}
+void ilacEkle()
+{
+    ilac urun;
+    urun.ilacOlustur();
+    string eczaneIsmi;
+    cout<<"Eczane ismi giriniz: ";
+    cin>>eczaneIsmi;
+    fstream File;
+    File.open(eczaneIsmi+"_ilac.dat",std::ios_base::app);
+    File<<endl<<urun.getisim()<<endl<<urun.getId()<<endl<<urun.getFiyat()<<endl<<urun.getSayi();
+    File.close();
+
 }
