@@ -55,13 +55,14 @@ class ilac{
     string getisim();
 };
 
+//Function
 void eczaneGirisi(int parola);
+void musteriGirisi();
 
 int main()
 {
-    eczane gencEczane;
-    gencEczane.eczaneOlustur();
-    gencEczane.eczaneIlacSayfasi();
+    eczaneGirisi(123);
+    musteriGirisi();
 
     return 0;
 }
@@ -216,8 +217,8 @@ void eczaneGirisi(int parola)
             "   1. Eczane Listesi Olustur\n"<<
             "   2. Eczane Ekle\n"<<
             "   3. Ilac Ekle\n"<<
-            "   4. Ilac Duzenle"<<
-            "   5. Ust menu"<<
+            "   4. Ilac Duzenle\n"<<
+            "   5. Ust menu\n"<<
             "secim: ";
             cin>>secim;
             
@@ -230,16 +231,46 @@ void eczaneGirisi(int parola)
             else if(secim==4)
                 cout<<"4. secim yapildi";
             else if(secim==5)
-                cout<<"Ust menuye cikildi";
+            {
+                cout<<"Ust menuye cikildi\n";
+                break;
+            }
             else
                 cout<<"Yanlis secim yaptiniz tekrar deneyiniz";
-            
-
-                
-                
-        
         }
     else
         cout<<"Hatali sifre: ";    
     
+}
+
+void musteriGirisi()
+{
+    while (1)
+        {
+            int secim;
+            cout<<"Musteri Girisi\n"<<
+            "   1. Ilac Ara\n"<<
+            "   2. Eczane Listesi\n"<<
+            "   3. Herhangi bir Eczaneyi Goster\n"<<
+            "   4. Herhangi bir Eczaneye ait Ilac Listesi\n"<<
+            "   5. Ust menu\n"<<
+            "secim: ";
+            cin>>secim;
+            
+            if (secim==1)
+                cout<<"1. secim yapildi";
+            else if(secim==2)
+                cout<<"2. secim yapildi";
+            else if(secim==3)
+                cout<<"3. secim yapildi";
+            else if(secim==4)
+                cout<<"4. secim yapildi";
+            else if(secim==5)
+            {
+                cout<<"Ust menuye cikildi\n";
+                break;
+            }
+            else
+                cout<<"Yanlis secim yaptiniz tekrar deneyiniz"; 
+        } 
 }
