@@ -58,11 +58,11 @@ class ilac{
 //Function
 void eczaneGirisi(int parola);
 void musteriGirisi();
+void karsilama();
 
 int main()
 {
-    eczaneGirisi(123);
-    musteriGirisi();
+    karsilama();
 
     return 0;
 }
@@ -213,7 +213,7 @@ void eczaneGirisi(int parola)
         while (1)
         {
             int secim;
-            cout<<"Eczane Girisi\n"<<
+            cout<<"\nEczane Girisi\n"<<
             "   1. Eczane Listesi Olustur\n"<<
             "   2. Eczane Ekle\n"<<
             "   3. Ilac Ekle\n"<<
@@ -242,13 +242,12 @@ void eczaneGirisi(int parola)
         cout<<"Hatali sifre: ";    
     
 }
-
 void musteriGirisi()
 {
     while (1)
         {
             int secim;
-            cout<<"Musteri Girisi\n"<<
+            cout<<"\nMusteri Girisi\n"<<
             "   1. Ilac Ara\n"<<
             "   2. Eczane Listesi\n"<<
             "   3. Herhangi bir Eczaneyi Goster\n"<<
@@ -273,4 +272,30 @@ void musteriGirisi()
             else
                 cout<<"Yanlis secim yaptiniz tekrar deneyiniz"; 
         } 
+}
+void karsilama()
+{
+    int parola,secim;
+    while (1)
+    {
+        cout<<"1. Eczane Girisi\n"
+            <<"2. Musteri Girisi\n"
+            <<"3. Cıkıs\n"
+            <<"\nSecim: ";
+        cin>>secim;
+
+        if(secim==1)
+        {
+            cout<<"Parola giriniz: ";
+            cin>>parola;
+            eczaneGirisi(parola);
+        }
+        else if(secim==2)
+            musteriGirisi();
+        else if(secim==3)
+            break;
+        else
+            cout<<"Yanlis giris tekrar deneyin\n";    
+    }
+    
 }
