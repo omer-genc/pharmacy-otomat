@@ -1,6 +1,7 @@
 #include<iostream>
 #include<fstream>
 #include<string>
+#include<vector>
 using namespace std;
 
 string eczaneListesi = "eczane_listesi.dat"; 
@@ -30,7 +31,8 @@ class eczane
     string getAdres();
 };
 
-class ilac{
+class ilac
+{
  private:
     int ilac_id;
     int ilac_sayisi;
@@ -66,6 +68,9 @@ void eczaneEkle();
 void ilacEkle();
 void ilacDuzenle();
 void eczaneListele();
+void ilacAra();
+void eczaneGosterHerhangi();
+void ilacGosterHerhangiEczane();
 
 int main()
 {
@@ -259,13 +264,13 @@ void musteriGirisi()
             cin>>secim;
             
             if (secim==1)
-                cout<<"1. secim yapildi";
+                ilacAra();
             else if(secim==2)
                 eczaneListele();
             else if(secim==3)
-                cout<<"3. secim yapildi";
+                eczaneGosterHerhangi();
             else if(secim==4)
-                cout<<"4. secim yapildi";
+                ilacGosterHerhangiEczane();
             else if(secim==5)
             {
                 cout<<"Ust menuye cikildi\n";
@@ -359,6 +364,79 @@ void eczaneListele()
     while (getline(File,output))
     {
         cout<<output;
+    }
+    File.close();
+}
+void ilacAra()
+{
+    string arama;
+    cout<<"Aramak istediginiz ilac ismini giriniz: ";
+    cin>>arama;
+    string eczaneIsmi;
+    ifstream File(eczaneListesi);
+    string ilacDosya,ilacismi;
+    int i = 0;
+    cout<<arama<<" ilaciin bulundugu eczaneler:\n";
+    while (getline(File,eczaneIsmi,' '))
+    {
+        i++;
+        if(i==2)
+        {
+            ilacDosya = eczaneIsmi + "_ilac.dat";
+            ifstream File2(ilacDosya);
+            while (getline(File2,ilacismi,' '))
+            {
+                if(arama == ilacismi)
+                    cout<<eczaneIsmi<<endl;
+            }
+            File2.close();
+        }
+        if(i==3)
+            i=1;   
+    }
+    File.close();
+}
+void eczaneGosterHerhangi()
+{
+    string arama,gezgin;
+    cout<<"Aradıginiz eczane ismini giriniz: ";
+    cin>>arama;
+    eczane iter;
+    ifstream File(eczaneListesi);
+    int i = 0;
+    while (getline(File,gezgin,' '))
+    {
+        if(i==0)
+            iter.setId(atoi(gezgin.c_str()));
+        if(i==1)
+            iter.setIsim(gezgin);
+        if(i==2)
+        {
+            iter.setAdres(gezgin);
+            if(iter.getIsim()==arama)
+                iter.eczaneGoster();
+            break;
+        }
+        i++;
+        if(i == 3)
+            i=0;
+    }
+    
+    File.close();
+
+}
+void ilacGosterHerhangiEczane()
+{
+    string arama,gezgin;
+    string eczaneAdi;
+    cout<<"Depo gormek icin eczane ismi giriniz: ";
+    cin>>eczaneAdi;
+    string eczaneDepo = eczaneAdi+"_ilac.dat";
+    ifstream File(eczaneDepo);
+
+    while (getline(File,gezgin))
+    {
+        cout<<gezgin<<endl;
     }
     File.close();
 }
