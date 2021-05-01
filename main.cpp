@@ -3,6 +3,8 @@
 #include<string>
 using namespace std;
 
+string eczaneListesi = "eczane_listesi.dat"; 
+
 class eczane
 {
  private:
@@ -55,13 +57,15 @@ class ilac{
     string getisim();
 };
 
-//Function
+//Function protatipe
 void eczaneGirisi(int parola);
 void musteriGirisi();
 void karsilama();
 void eczaneListesiOlustur();
 void eczaneEkle();
 void ilacEkle();
+void ilacDuzenle();
+void eczaneListele();
 
 int main()
 {
@@ -257,7 +261,7 @@ void musteriGirisi()
             if (secim==1)
                 cout<<"1. secim yapildi";
             else if(secim==2)
-                cout<<"2. secim yapildi";
+                eczaneListele();
             else if(secim==3)
                 cout<<"3. secim yapildi";
             else if(secim==4)
@@ -303,7 +307,7 @@ void eczaneListesiOlustur()
     E.eczaneOlustur();
     fstream File;
     File.open("eczane_listesi.dat",std::ios_base::app);
-    File<<endl<<E.getId()<<endl<<E.getIsim()<<endl<<E.getAdres();
+    File<<endl<<E.getId()<<" "<<E.getIsim()<<" "<<E.getAdres();
     File.close();
 
     string filename;
@@ -318,7 +322,7 @@ void eczaneEkle()
     E.eczaneOlustur();
     fstream File;
     File.open("eczane_listesi.dat",std::ios_base::app);
-    File<<endl<<E.getId()<<endl<<E.getIsim()<<endl<<E.getAdres();
+    File<<endl<<E.getId()<<" "<<E.getIsim()<<" "<<E.getAdres();
     File.close();
 
     string filename;
@@ -336,7 +340,25 @@ void ilacEkle()
     cin>>eczaneIsmi;
     fstream File;
     File.open(eczaneIsmi+"_ilac.dat",std::ios_base::app);
-    File<<endl<<urun.getisim()<<endl<<urun.getId()<<endl<<urun.getFiyat()<<endl<<urun.getSayi();
+    File<<endl<<urun.getId()<<" "<<urun.getisim()<<" "<<urun.getFiyat()<<" "<<urun.getSayi();
     File.close();
 
+}
+void ilacDuzenle()
+{
+    
+    
+}
+
+//customer funct
+void eczaneListele()
+{
+    string output;
+    ifstream File(eczaneListesi);
+
+    while (getline(File,output))
+    {
+        cout<<output;
+    }
+    File.close();
 }
