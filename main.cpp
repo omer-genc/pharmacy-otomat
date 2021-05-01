@@ -59,6 +59,7 @@ class ilac{
 void eczaneGirisi(int parola);
 void musteriGirisi();
 void karsilama();
+void eczaneListesiOlustur();
 
 int main()
 {
@@ -101,12 +102,7 @@ void eczane::eczaneOlustur()
     cout<<"Eczane ismi: ";
     cin>>eczane_ismi;
     cout<<"Eczane adresi: ";
-    cin>>eczane_adresi;
-
-    fstream File;
-    File.open("eczane_listesi.dat",std::ios_base::app);
-    File<<endl<<eczane_id<<endl<<eczane_ismi<<endl<<eczane_adresi;
-    File.close();
+    cin>>eczane_adresi;  
 }
 void eczane::eczaneGoster()
 {
@@ -223,7 +219,7 @@ void eczaneGirisi(int parola)
             cin>>secim;
             
             if (secim==1)
-                cout<<"1. secim yapildi";
+                eczaneListesiOlustur();
             else if(secim==2)
                 cout<<"2. secim yapildi";
             else if(secim==3)
@@ -298,4 +294,19 @@ void karsilama()
             cout<<"Yanlis giris tekrar deneyin\n";    
     }
     
+}
+void eczaneListesiOlustur()
+{
+    eczane E;
+    E.eczaneOlustur();
+    fstream File;
+    File.open("eczane_listesi.dat",std::ios_base::app);
+    File<<endl<<E.getId()<<endl<<E.getIsim()<<endl<<E.getAdres();
+    File.close();
+
+    string filename;
+    filename = E.getIsim() + "_ilac.dat";
+    ofstream File2 (filename);
+    File2<<"";
+    File2.close();
 }
