@@ -1,7 +1,6 @@
 #include<iostream>
 #include<fstream>
 #include<string>
-#include<vector>
 using namespace std;
 
 string eczaneListesi = "eczane_listesi.dat"; 
@@ -66,7 +65,7 @@ void karsilama();
 void eczaneListesiOlustur();
 void eczaneEkle();
 void ilacEkle();
-void ilacDuzenle();
+void ilacDuzenleDat();
 void eczaneListele();
 void ilacAra();
 void eczaneGosterHerhangi();
@@ -236,7 +235,7 @@ void eczaneGirisi(int parola)
             else if(secim==3)
                 ilacEkle();
             else if(secim==4)
-                cout<<"4. secim yapildi";
+                ilacDuzenleDat();
             else if(secim==5)
             {
                 cout<<"Ust menuye cikildi\n";
@@ -312,7 +311,7 @@ void eczaneListesiOlustur()
     E.eczaneOlustur();
     fstream File;
     File.open("eczane_listesi.dat",std::ios_base::app);
-    File<<endl<<E.getId()<<" "<<E.getIsim()<<" "<<E.getAdres();
+    File<<E.getId()<<" "<<E.getIsim()<<" "<<E.getAdres()<<" ";
     File.close();
 
     string filename;
@@ -327,7 +326,7 @@ void eczaneEkle()
     E.eczaneOlustur();
     fstream File;
     File.open("eczane_listesi.dat",std::ios_base::app);
-    File<<endl<<E.getId()<<" "<<E.getIsim()<<" "<<E.getAdres();
+    File<<E.getId()<<" "<<E.getIsim()<<" "<<E.getAdres()<<" ";
     File.close();
 
     string filename;
@@ -345,14 +344,59 @@ void ilacEkle()
     cin>>eczaneIsmi;
     fstream File;
     File.open(eczaneIsmi+"_ilac.dat",std::ios_base::app);
-    File<<endl<<urun.getId()<<" "<<urun.getisim()<<" "<<urun.getFiyat()<<" "<<urun.getSayi();
+    File<<urun.getId()<<" "<<urun.getisim()<<" "<<urun.getFiyat()<<" "<<urun.getSayi()<<" ";
     File.close();
 
 }
-void ilacDuzenle()
+void ilacDuzenleDat()
 {
-    
-    
+    string eczaneIsmi,depoadresi,iter,tmp,arama;
+    int i=0;
+    bool kapi1,kapi2,kapi3,kapi4 = false;
+    cout<<"Hangi eczanenin deposuna gitmek istersin:\n ";
+    eczaneListele();
+    cin>>eczaneIsmi;
+    cout<<"İlac id: ";
+    cin>>arama;
+    depoadresi=eczaneIsmi+"_ilac.dat";
+    fstream File(depoadresi);
+    while (getline(File,iter,' '))
+    {
+        i++;
+        if(i==1 && iter==arama)
+        {
+            cout<<"Eski id: "<<iter<<endl<<"Yeni id: ";
+            cin>>iter;
+            kapi1 = true;
+        }
+        if(i==2 && kapi1)
+        {
+            cout<<"Eski isim: "<<iter<<endl<<"Yeni isim: ";
+            cin>>iter;
+            kapi2 = true;
+            kapi1 = false;
+        }
+        if(i==3 && kapi2)
+        {
+            cout<<"Eski fiyat: "<<iter<<endl<<"Yeni fiyat: ";
+            cin>>iter;
+            kapi3 = true;
+            kapi2 = false;
+        }
+        if(i==4 && kapi3)
+        {
+            cout<<"Eski adet: "<<iter<<endl<<"Yeni adet: ";
+            cin>>iter;
+            kapi3 = true;
+        }
+        if(i==4)
+            i=0;
+        tmp = tmp + " " + iter;
+    }
+    File.close();
+    File.open(depoadresi);
+    File<<tmp;
+    File.close();
 }
 
 //customer funct
@@ -361,9 +405,9 @@ void eczaneListele()
     string output;
     ifstream File(eczaneListesi);
 
-    while (getline(File,output))
+    while (getline(File,output,' '))
     {
-        cout<<output;
+        cout<<output<<endl;
     }
     File.close();
 }
