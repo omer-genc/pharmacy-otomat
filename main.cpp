@@ -2,7 +2,6 @@
 #include<fstream>
 #include<string>
 using namespace std;
-
 string eczaneListesi = "eczane_listesi.dat"; 
 
 class eczane
@@ -286,7 +285,7 @@ void karsilama()
     {
         cout<<"1. Eczane Girisi\n"
             <<"2. Musteri Girisi\n"
-            <<"3. Cıkıs\n"
+            <<"3. Cikis\n"
             <<"\nSecim: ";
         cin>>secim;
 
@@ -352,7 +351,7 @@ void ilacDuzenleDat()
 {
     string eczaneIsmi,depoadresi,iter,tmp,arama;
     int i=0;
-    bool kapi1,kapi2,kapi3,kapi4 = false;
+    bool kapi1 =false,kapi2=false,kapi3 = false;
     cout<<"Hangi eczanenin deposuna gitmek istersin:\n ";
     eczaneListele();
     cin>>eczaneIsmi;
@@ -362,36 +361,42 @@ void ilacDuzenleDat()
     fstream File(depoadresi);
     while (getline(File,iter,' '))
     {
-        i++;
-        if(i==1 && iter==arama)
+        if(i==0 && iter==arama)
         {
             cout<<"Eski id: "<<iter<<endl<<"Yeni id: ";
             cin>>iter;
+            iter = iter + ' ';
             kapi1 = true;
         }
-        if(i==2 && kapi1)
+        else if(i==1 && kapi1)
         {
             cout<<"Eski isim: "<<iter<<endl<<"Yeni isim: ";
             cin>>iter;
+            iter = iter + ' ';
             kapi2 = true;
             kapi1 = false;
         }
-        if(i==3 && kapi2)
+        else if(i==2 && kapi2)
         {
             cout<<"Eski fiyat: "<<iter<<endl<<"Yeni fiyat: ";
             cin>>iter;
+            iter = iter + ' ';
             kapi3 = true;
             kapi2 = false;
         }
-        if(i==4 && kapi3)
+        else if(i==3 && kapi3)
         {
             cout<<"Eski adet: "<<iter<<endl<<"Yeni adet: ";
             cin>>iter;
-            kapi3 = true;
+            iter = iter + ' ';
+            kapi3 = false;
         }
+        else
+            iter+=' ';
+        tmp = tmp + iter;
+        i++;
         if(i==4)
             i=0;
-        tmp = tmp + " " + iter;
     }
     File.close();
     File.open(depoadresi);
@@ -436,7 +441,7 @@ void ilacAra()
             File2.close();
         }
         if(i==3)
-            i=1;   
+            i=0;   
     }
     File.close();
 }
@@ -456,14 +461,15 @@ void eczaneGosterHerhangi()
             iter.setIsim(gezgin);
         if(i==2)
         {
+            i=-1;
             iter.setAdres(gezgin);
             if(iter.getIsim()==arama)
+            {
                 iter.eczaneGoster();
-            break;
+                break;
+            } 
         }
         i++;
-        if(i == 3)
-            i=0;
     }
     
     File.close();
@@ -477,10 +483,17 @@ void ilacGosterHerhangiEczane()
     cin>>eczaneAdi;
     string eczaneDepo = eczaneAdi+"_ilac.dat";
     ifstream File(eczaneDepo);
+    int i = 0;
 
-    while (getline(File,gezgin))
+    while (getline(File,gezgin,' '))
     {
         cout<<gezgin<<endl;
+        if(i==3)
+        {
+            cout<<endl;
+            i=-1;
+        }
+        i++;
     }
     File.close();
 }
